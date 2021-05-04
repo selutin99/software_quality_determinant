@@ -6,9 +6,14 @@ main = Blueprint('main', __name__, template_folder='templates')
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('main/index.html')
 
 
-@main.route('/L1')
-def L1():
-    return render_template('L1.html')
+@main.route('/about')
+def about():
+    return render_template('main/about.html')
+
+
+@main.route('/documents')
+def documents():
+    return render_template('main/documents.html')

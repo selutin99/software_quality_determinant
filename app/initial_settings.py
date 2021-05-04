@@ -13,6 +13,9 @@ class InitialSettings:
         from app.routes.main import main as main_blueprint
         self.app.register_blueprint(main_blueprint)
 
+        from app.routes.variables import variables as variables_blueprint
+        self.app.register_blueprint(variables_blueprint)
+
     def create_storage_folder(self) -> NoReturn:
         storage_path = 'app/static/calc_storage'
 
