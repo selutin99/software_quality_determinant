@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block body %}
+        <h1>Система оценки качества разрабатываемого <br/> программного обеспечения</h1>
+        <br/>
+        <a href="{{ url_for('main.L1') }}" class="btn btn-info" role="button">Начать</a>
+{% endblock %}
