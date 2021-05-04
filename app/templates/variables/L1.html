@@ -1,34 +1,20 @@
-{% extends "base.html" %}
+{% extends "base_variables.html" %}
 
 {% block title %}
     L1 надёжность
 {% endblock %}
 
-{% block body %}
-    <h1>Определение коэффициентов полиномов <br/> переменной L1 (надежность)</h1>
-    <br/>
+{% block variable_name %}
+    L1 (надёжность)
+{% endblock %}
 
-    <p>
-        <a class="btn btn-primary"
-           data-bs-toggle="collapse"
-           href="#collapseL1"
-           role="button"
-           aria-expanded="false"
-           aria-controls="collapseL1">
-            Открыть подграф переменной
-        </a>
-    </p>
-    <div class="collapse" id="collapseL1">
-        <div class="row">
-            <div class="col-6 mx-auto text-center">
-                <div class="card card-body">
-                    <img src="{{ url_for('static', filename='images/graphs/L1-graph.png') }}" class="img-fluid">
-                </div>
-            </div>
-        </div>
-    </div>
+{% block variable_graph_image %}
+    <img src="{{ url_for('static', filename='images/graphs/L1-graph.png') }}"
+         class="img-fluid">
+{% endblock %}
 
-    <form method="post" action="">
+{% block variable_form %}
+    <form method="POST" action="">
         <h3>Коэффициенты полинома f1 для переменной L1</h3>
         <div class="form-group">
             <label for="L1f1A0">Свободный член для полинома f1 (a0)</label>
@@ -56,6 +42,7 @@
         </div>
         <button type="submit"
                 style="margin-top: 10px; margin-bottom: 15px;"
-                class="btn btn-primary">Дальше</button>
+                class="btn btn-primary">Дальше
+        </button>
     </form>
 {% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <h1>Определение коэффициентов полиномов <br/> переменной {% block variable_name %}{% endblock %}</h1>
+    <br/>
+
+    <p>
+        <a class="btn btn-primary"
+           data-bs-toggle="collapse"
+           href="#collapseGraph"
+           role="button"
+           aria-expanded="false"
+           aria-controls="collapseGraph">
+            Открыть подграф переменной
+        </a>
+    </p>
+    <div class="collapse" id="collapseGraph">
+        <div class="row">
+            <div class="col-6 mx-auto text-center">
+                <div class="card card-body">
+                    {% block variable_graph_image %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block variable_form %}
+    {% endblock %}
+{% endblock %}
