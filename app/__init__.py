@@ -1,9 +1,12 @@
+import os
+
 from flask import Flask
 
 from initial_settings import InitialSettings
 from utils.flask_inject import Inject
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
 # Dependency injection container
 injector = Inject(app)

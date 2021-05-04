@@ -1,6 +1,8 @@
 from typing import NoReturn
 
 from app import injector, InitialSettings, app
+from services.integrity_service import IntegrityService
+from utils.utils import Utils
 
 
 def container() -> NoReturn:
@@ -10,5 +12,6 @@ def container() -> NoReturn:
     """
     # Utils classes
     injector.map(init_settings=InitialSettings(app=app))
+    injector.map(utils=Utils())
     # Process services
-    pass
+    injector.map(integrity_service=IntegrityService())

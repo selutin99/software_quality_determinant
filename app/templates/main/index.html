@@ -4,7 +4,17 @@
 {% endblock %}
 
 {% block body %}
-        <h1>Система оценки качества разрабатываемого <br/> программного обеспечения</h1>
-        <br/>
-        <a href="{{ url_for('variables.L1') }}" class="btn btn-info" role="button">Начать</a>
+    <h1>Система оценки качества разрабатываемого <br/> программного обеспечения</h1>
+    <br/>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div id="list-notification"
+                 class="alert alert-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <a href="{{ url_for('variables.L1') }}" class="btn btn-info" role="button">Начать</a>
 {% endblock %}
