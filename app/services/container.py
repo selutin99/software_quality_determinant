@@ -1,7 +1,7 @@
 from typing import NoReturn
 
 from app import injector, InitialSettings, app
-from services.integrity_service import IntegrityService
+from services.polynomial_service import PolynomialService
 from utils.utils import Utils
 
 
@@ -14,4 +14,4 @@ def container() -> NoReturn:
     injector.map(init_settings=InitialSettings(app=app))
     injector.map(utils=Utils())
     # Process services
-    injector.map(integrity_service=IntegrityService(utils=injector.get('utils')))
+    injector.map(polynomial_service=PolynomialService(utils=injector.get('utils')))

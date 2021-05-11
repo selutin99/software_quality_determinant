@@ -3,11 +3,12 @@ from typing import NoReturn
 
 from werkzeug.datastructures import ImmutableMultiDict
 
+from services.custom_exceptions.polynomial_service_custom_exceptions import PolynomialServiceCustomExceptions
 from utils.constants import Constants
 from utils.utils import Utils
 
 
-class IntegrityService:
+class PolynomialService:
     def __init__(self, utils: Utils):
         self.__utils = utils
 
@@ -32,7 +33,7 @@ class IntegrityService:
         :param form: html form which contains polynomial coefficients
         """
         with open('{path}{id}.json'.format(path=Constants.PATH_TO_CALC_STORAGE_FILE, id=calculation_id), 'a') as file:
-            result_dictionary: dict = self.__parse_input_arguments(form=form)
+            result_dictionary: dict = self.__parse_polynomial_coefficients(form=form)
             json.dump(result_dictionary, file, indent=4)
 
     def append_variable(self, calculation_id: str, form: ImmutableMultiDict) -> NoReturn:
@@ -44,24 +45,23 @@ class IntegrityService:
         with open('{path}{id}.json'.format(path=Constants.PATH_TO_CALC_STORAGE_FILE, id=calculation_id), 'r') as file:
             data = json.load(file)
 
-        result_dictionary: dict = self.__parse_input_arguments(form=form)
+        result_dictionary: dict = self.__parse_polynomial_coefficients(form=form)
         data.update(result_dictionary)
 
         with open('{path}{id}.json'.format(path=Constants.PATH_TO_CALC_STORAGE_FILE, id=calculation_id), 'w') as file:
             json.dump(data, file, indent=4)
 
-    def __parse_input_arguments(self, form: ImmutableMultiDict) -> dict:
+    def __parse_polynomial_coefficients(self, form: ImmutableMultiDict) -> dict:
         result_dict = dict()
         for field in form.items():
-            # Get current variable, function, and coefficients
-            parsed_list: list = self.__utils.split_by_numbers(field[0])
-            # Add variable to result dict
-            if ('L' + parsed_list[0]) not in result_dict:
-                result_dict['L' + parsed_list[0]] = {}
-            # Append polynomial function to variable
-            if ('L' + parsed_list[0]) in result_dict and \
-                    not result_dict['L' + parsed_list[0]].get('f' + parsed_list[1]):
-                result_dict['L' + parsed_list[0]]['f' + parsed_list[1]] = {}
-            # Append polynomial coefficients to function
-            result_dict['L' + parsed_list[0]]['f' + parsed_list[1]]['A' + parsed_list[2]] = field[1]
+            try:
+                # Get current variable, function, and coefficients
+                parsed_list: list = self.__utils.split_by_numbers(field[0])
+                # Append polynomial function to variable
+                if ('f' + parsed_list[1]) not in result_dict:
+                    result_dict['f' + parsed_list[1]] = {}
+                # Append polynomial coefficients to function
+                result_dict['f' + parsed_list[1]]['A' + parsed_list[2]] = field[1]
+            except Exception:
+                raise PolynomialServiceCustomExceptions.ParsingException('Parsing exception')
         return result_dict

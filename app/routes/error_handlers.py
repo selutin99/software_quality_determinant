@@ -1,6 +1,7 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, flash
 
 from app import app
+from services.custom_exceptions.polynomial_service_custom_exceptions import PolynomialServiceCustomExceptions
 
 
 @app.errorhandler(404)
@@ -18,7 +19,19 @@ def page_not_avaliable(e):
     return render_template('errors/410.html'), 410
 
 
-# @app.errorhandler(Exception)
-# def handle_base_exception(exception):
-#     flash(u'Непредвиденная ошибка')
-#     return redirect(url_for('main.index'))
+@app.errorhandler(FileNotFoundError)
+def handle_base_exception(exception):
+    flash(u'Ошибка обработки вашей сессии. Начните ввод данных заново!')
+    return redirect(url_for('main.index'))
+
+
+@app.errorhandler(PolynomialServiceCustomExceptions.ParsingException)
+def handle_base_exception(exception):
+    flash(u'Ошибка обработки полиномиальных коэффициентов')
+    return redirect(url_for('main.index'))
+
+
+@app.errorhandler(Exception)
+def handle_base_exception(exception):
+    flash(u'Непредвиденная ошибка')
+    return redirect(url_for('main.index'))

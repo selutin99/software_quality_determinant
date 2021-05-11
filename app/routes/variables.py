@@ -1,7 +1,7 @@
 import flask
 from flask import Blueprint, render_template, make_response, request, redirect, url_for
 
-from services.integrity_service import IntegrityService
+from services.polynomial_service import PolynomialService
 from utils.constants import Constants
 from utils.decorator_utils import session_exist_for_post_only, session_exist_for_get_post
 from utils.flask_inject import inject
@@ -11,14 +11,14 @@ variables = Blueprint('variables', __name__, template_folder='templates')
 
 
 @variables.route('/initial-setup', methods=['GET', 'POST'])
-@inject('utils', 'integrity_service')
+@inject('utils', 'polynomial_service')
 @session_exist_for_post_only
-def initial_setup(utils: Utils, integrity_service: IntegrityService):
+def initial_setup(utils: Utils, polynomial_service: PolynomialService):
     if flask.request.method == 'POST':
-        integrity_service.create_calc_storage_file(
+        polynomial_service.create_calc_storage_file(
             calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME)
         )
-        integrity_service.save_initial_variable(
+        polynomial_service.save_initial_variable(
             calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME),
             form=request.form
         )
@@ -46,11 +46,11 @@ def initial_setup(utils: Utils, integrity_service: IntegrityService):
 
 
 @variables.route('/continue-setup', methods=['GET', 'POST'])
-@inject('integrity_service')
+@inject('polynomial_service')
 @session_exist_for_get_post
-def continue_setting_up(integrity_service: IntegrityService):
+def continue_setting_up(polynomial_service: PolynomialService):
     if flask.request.method == 'POST':
-        integrity_service.append_variable(
+        polynomial_service.append_variable(
             calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME),
             form=request.form
         )

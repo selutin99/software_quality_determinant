@@ -1,5 +1,5 @@
 # Routes
-from flask import render_template, Blueprint, request
+from flask import render_template, Blueprint, request, flash, redirect, url_for
 
 from utils.constants import Constants
 from utils.flask_inject import inject
@@ -29,3 +29,12 @@ def about():
 @main.route('/documents')
 def documents():
     return render_template('main/documents.html')
+
+
+@main.route('/clear-session')
+def clear_session():
+    response = redirect(url_for('main.index'))
+    response.delete_cookie(Constants.PAGE_COUNTER_COOKIE_NAME)
+    response.delete_cookie(Constants.CALCULATION_ID_COOKIE_NAME)
+    flash(u'Ваша предыдущая сессия очищена успешно')
+    return response
