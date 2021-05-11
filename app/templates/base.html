@@ -16,6 +16,9 @@
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
             crossorigin="anonymous"></script>
     <!-- End Bootstrap CSS -->
+    <!--Cookie alert-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.css">
+    <!--End cookie alert-->
 </head>
 <body>
 
@@ -42,30 +45,22 @@
     </div>
 </nav>
 
-<!-- cookie warning toast -->
-<div class="fixed-bottom p-4">
-    <div class="toast bg-dark text-white w-100 mw-100" role="alert" data-autohide="false">
-        <div class="toast-body p-4 d-flex flex-column">
-            <h4>Cookie</h4>
-            <p>
-                Этот сайт использует cookie-файлы для своей работы.
-                Пожалуйста, примите их использование.
-            </p>
-            <div class="ml-auto">
-                <button type="button" class="btn btn-light" id="btnAccept">
-                    Принять
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="d-flex align-items-center min-vh-100">
     <div class="container text-center">
         {% block body %}
         {% endblock %}
     </div>
 </div>
+
+<!-- cookie warning toast -->
+<div class="alert text-center cookiealert" role="alert">
+    <b>Любите печеньки?</b> &#x1F36A; Сайт использует cookies в своей работе.
+    <a href="https://cookiesandyou.com/" target="_blank">Узнать больше</a>
+    <button type="button" class="btn btn-primary btn-sm acceptcookies">
+        Принять
+    </button>
+</div>
+
 <!-- JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
@@ -77,7 +72,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
         integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
         crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="{{ url_for('static', filename='js/cookies.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.js"></script>
 </body>
 </html>
