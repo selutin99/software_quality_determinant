@@ -12,6 +12,8 @@ class PolynomialService:
     def __init__(self, utils: Utils):
         self.__utils = utils
 
+        self.__polynomial_coefficients_key = 'polynomial_coefficients'
+
     def create_calc_storage_file(self, calculation_id: str) -> NoReturn:
         """
         Create empty json file with name is equal to current timestamp
@@ -26,9 +28,9 @@ class PolynomialService:
         )
         calculation_storage_file.close()
 
-    def save_initial_variable(self, calculation_id: str, form: ImmutableMultiDict) -> NoReturn:
+    def save_initial_polynomial_coefficients(self, calculation_id: str, form: ImmutableMultiDict) -> NoReturn:
         """
-        Save L1 variable to json file
+        Save f1-f6 polynomial coefficients to json file
         :param calculation_id: cookie value is equal to user session id
         :param form: html form which contains polynomial coefficients
         """
@@ -36,9 +38,9 @@ class PolynomialService:
             result_dictionary: dict = self.__parse_polynomial_coefficients(form=form)
             json.dump(result_dictionary, file, indent=4)
 
-    def append_variable(self, calculation_id: str, form: ImmutableMultiDict) -> NoReturn:
+    def append_polynomial_coefficients(self, calculation_id: str, form: ImmutableMultiDict) -> NoReturn:
         """
-        Save L2-L15 variables to json file
+        Save f7-f98 polynomial coefficients to json file
         :param calculation_id: cookie value is equal to user session id
         :param form: html form which contains polynomial coefficients
         """
@@ -51,8 +53,22 @@ class PolynomialService:
         with open('{path}{id}.json'.format(path=Constants.PATH_TO_CALC_STORAGE_FILE, id=calculation_id), 'w') as file:
             json.dump(data, file, indent=4)
 
+    def reformat_polynomial_coefficients(self, calculation_id: str) -> NoReturn:
+        """
+        Add root key 'polynomial_coefficients' to result json
+        :param calculation_id: cookie value is equal to user session id
+        """
+        with open('{path}{id}.json'.format(path=Constants.PATH_TO_CALC_STORAGE_FILE, id=calculation_id), 'r') as file:
+            data = json.load(file)
+
+        if self.__polynomial_coefficients_key not in data:
+            data: dict = {self.__polynomial_coefficients_key: data}
+
+            with open('{path}{id}.json'.format(path=Constants.PATH_TO_CALC_STORAGE_FILE, id=calculation_id), 'w') as file:
+                json.dump(data, file, indent=4)
+
     def __parse_polynomial_coefficients(self, form: ImmutableMultiDict) -> dict:
-        result_dict = dict()
+        result_dict: dict = dict()
         for field in form.items():
             try:
                 # Get current variable, function, and coefficients

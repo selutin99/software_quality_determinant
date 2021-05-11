@@ -4,6 +4,9 @@ class Constants:
     PAGE_COUNTER_COOKIE_NAME = 'page_counter'
 
     # Variables description
+    LAST_VARIABLE_NUMBER = '15'
+    FINAL_SETUP_NUMBER = '16'
+
     VARIABLES_DESCRIPTION = {
         '1': {
             'lower_bound': 1,
