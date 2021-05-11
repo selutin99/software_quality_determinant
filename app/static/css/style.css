@@ -1,0 +1,36 @@
+/* Image zoom */
+.zoom {
+    -webkit-transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    transition: all 0.35s ease-in-out;
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+    cursor: zoom-in;
+}
+
+.zoom:hover {
+    -ms-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    transform: scale(1.5);
+    position: relative;
+    z-index: 100;
+}
+
+@media only screen and (max-width: 768px) {
+    .DivName {
+        cursor: pointer
+    }
+
+    .zoom:hover {
+        -ms-transform: scale(5.5);
+        -moz-transform: scale(5.5);
+        -webkit-transform: scale(5.5);
+        -o-transform: scale(5.5);
+        transform: scale(5.5);
+        position: relative;
+        z-index: 100;
+    }
+}
+/* End image zoom */

@@ -10,7 +10,7 @@
 
 {% block variable_graph_image %}
     <img src="{{ url_for('static', filename='images/graphs/L{variable_number}-graph.png'.format(variable_number=variable_number)) }}"
-         class="img-fluid">
+         class="img-fluid thumbnail zoom">
 {% endblock %}
 
 {% block variable_form %}
