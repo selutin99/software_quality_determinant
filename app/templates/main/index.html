@@ -17,4 +17,7 @@
     {% endwith %}
 
     <a href="{{ url_for('variables.initial_setup') }}" class="btn btn-info" role="button">Начать</a>
+    {% if session_already_exist %}
+        <a href="{{ url_for('variables.continue_setting_up') }}" class="btn btn-success" role="button">Продолжить</a>
+    {% endif %}
 {% endblock %}

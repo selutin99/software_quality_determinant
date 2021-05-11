@@ -1,6 +1,6 @@
 class Constants:
     # Cookie names
-    CONSISTENCY_COOKIE_NAME = 'calculation_id'
+    CALCULATION_ID_COOKIE_NAME = 'calculation_id'
     PAGE_COUNTER_COOKIE_NAME = 'page_counter'
 
     # Variables description

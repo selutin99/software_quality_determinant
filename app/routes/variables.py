@@ -16,10 +16,10 @@ variables = Blueprint('variables', __name__, template_folder='templates')
 def initial_setup(utils: Utils, integrity_service: IntegrityService):
     if flask.request.method == 'POST':
         integrity_service.create_calc_storage_file(
-            calculation_id=request.cookies.get(Constants.CONSISTENCY_COOKIE_NAME)
+            calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME)
         )
         integrity_service.save_initial_variable(
-            calculation_id=request.cookies.get(Constants.CONSISTENCY_COOKIE_NAME),
+            calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME),
             form=request.form
         )
         response = redirect(url_for('variables.continue_setting_up'))
@@ -40,7 +40,7 @@ def initial_setup(utils: Utils, integrity_service: IntegrityService):
                 form_action_url='variables.initial_setup'
             )
         )
-        response.set_cookie(Constants.CONSISTENCY_COOKIE_NAME, utils.generate_calculation_id())
+        response.set_cookie(Constants.CALCULATION_ID_COOKIE_NAME, utils.get_current_timestamp_millis())
         response.set_cookie(Constants.PAGE_COUNTER_COOKIE_NAME, '1')
         return response
 
@@ -51,7 +51,7 @@ def initial_setup(utils: Utils, integrity_service: IntegrityService):
 def continue_setting_up(integrity_service: IntegrityService):
     if flask.request.method == 'POST':
         integrity_service.append_variable(
-            calculation_id=request.cookies.get(Constants.CONSISTENCY_COOKIE_NAME),
+            calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME),
             form=request.form
         )
         response = redirect(url_for('variables.continue_setting_up'))

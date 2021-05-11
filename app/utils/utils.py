@@ -3,7 +3,7 @@ import time
 
 
 class Utils:
-    def generate_calculation_id(self) -> str:
+    def get_current_timestamp_millis(self) -> str:
         """
         Generate id based on current time in millis
         and convert it to str
@@ -27,4 +27,4 @@ class Utils:
         :return: list of numbers
         """
         if input_string:
-            return re.findall(r"\d+", input_string)
+            return re.findall(r'\d+', input_string)
