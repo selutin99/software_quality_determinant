@@ -27,6 +27,3 @@ class InitialSettings:
         from app.routes.error_handlers import page_not_found
         from app.routes.error_handlers import page_not_avaliable
         from app.routes.error_handlers import page_forbidden
-
-        # Import exception handlers
-        # from app.routes.error_handlers import handle_base_exception

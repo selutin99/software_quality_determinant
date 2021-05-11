@@ -18,11 +18,7 @@
 
     <a href="{{ url_for('variables.initial_setup') }}" class="btn btn-info" role="button">Начать</a>
     {% if session_already_exist %}
-        <a href="{{ url_for('variables.continue_setting_up') }}" class="btn btn-success" role="button">
-            Продолжить
-        </a>
-        <a href="{{ url_for('main.clear_session') }}" class="btn btn-danger" role="button">
-            Очистить пред. сессию
-        </a>
+        <a href="{{ url_for('variables.continue_setting_up') }}" class="btn btn-success" role="button">Продолжить</a>
+        <a href="{{ url_for('main.clear_session') }}" class="btn btn-danger" role="button">Очистить сессию</a>
     {% endif %}
 {% endblock %}
