@@ -20,4 +20,5 @@ def page_not_avaliable(e):
 
 # @app.errorhandler(Exception)
 # def handle_base_exception(exception):
+#     flash(u'Непредвиденная ошибка')
 #     return redirect(url_for('main.index'))

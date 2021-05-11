@@ -14,4 +14,4 @@ def container() -> NoReturn:
     injector.map(init_settings=InitialSettings(app=app))
     injector.map(utils=Utils())
     # Process services
-    injector.map(integrity_service=IntegrityService())
+    injector.map(integrity_service=IntegrityService(utils=injector.get('utils')))

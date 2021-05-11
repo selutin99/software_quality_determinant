@@ -1,13 +1,16 @@
 import json
-import re
 from typing import NoReturn
 
 from werkzeug.datastructures import ImmutableMultiDict
 
 from utils.constants import Constants
+from utils.utils import Utils
 
 
 class IntegrityService:
+    def __init__(self, utils: Utils):
+        self.__utils = utils
+
     def create_calc_storage_file(self, calculation_id: str) -> NoReturn:
         """
         Create empty json file with name is equal to current timestamp
@@ -51,7 +54,7 @@ class IntegrityService:
         result_dict = dict()
         for field in form.items():
             # Get current variable, function, and coefficients
-            parsed_list: list = self.__split_by_numbers(field[0])
+            parsed_list: list = self.__utils.split_by_numbers(field[0])
             # Add variable to result dict
             if ('L' + parsed_list[0]) not in result_dict:
                 result_dict['L' + parsed_list[0]] = {}
@@ -62,13 +65,3 @@ class IntegrityService:
             # Append polynomial coefficients to function
             result_dict['L' + parsed_list[0]]['f' + parsed_list[1]]['A' + parsed_list[2]] = field[1]
         return result_dict
-
-    def __split_by_numbers(self, input_string: str) -> list:
-        """
-        Return list of numbers which contains in string.
-        For example: L1f2A0 -> [1, 2, 0]
-        :param input_string: string which contains letters and numbers
-        :return: list of numbers
-        """
-        if input_string:
-            return re.findall(r"\d+", input_string)

@@ -1,3 +1,4 @@
+import re
 import time
 
 
@@ -17,3 +18,13 @@ class Utils:
         :return: cookie exist in session or not
         """
         return cookie_value not in (None, '')
+
+    def split_by_numbers(self, input_string: str) -> list:
+        """
+        Return list of numbers which contains in string.
+        For example: L1f2A0 -> [1, 2, 0]
+        :param input_string: string which contains letters and numbers
+        :return: list of numbers
+        """
+        if input_string:
+            return re.findall(r"\d+", input_string)
