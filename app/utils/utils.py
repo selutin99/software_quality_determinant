@@ -10,10 +10,10 @@ class Utils:
         """
         return str(round(time.time() * 1000))
 
-    def check_calculation_id_exists(self, calculation_id: str) -> bool:
+    def check_cookie_exists(self, cookie_value: str) -> bool:
         """
-        Check cookie calculation id is not None
-        :param calculation_id: calculation id cookie
-        :return: calculation id cookie exist in session or not
+        Check cookie is not None
+        :param cookie_value: cookie value
+        :return: cookie exist in session or not
         """
-        return calculation_id not in (None, '')
+        return cookie_value not in (None, '')

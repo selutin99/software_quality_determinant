@@ -1,24 +1,24 @@
 {% extends "base_variables.html" %}
 
 {% block title %}
-    L2 практичность
+    {{ variable_title }}
 {% endblock %}
 
 {% block variable_name %}
-    L2 (практичность)
+    {{ variable_name }}
 {% endblock %}
 
 {% block variable_graph_image %}
-    <img src="{{ url_for('static', filename='images/graphs/L2-graph.png') }}"
+    <img src="{{ url_for('static', filename='images/graphs/L{variable_number}-graph.png'.format(variable_number=variable_number)) }}"
          class="img-fluid">
 {% endblock %}
 
 {% block variable_form %}
     <!--Include form-->
-    {% with lower_bound=7,
-            upper_bound=12,
-            variable_number=2,
-            form_action=url_for('variables.L2') %}
+    {% with lower_bound=lower_bound,
+            upper_bound=upper_bound,
+            variable_number=variable_number,
+            form_action=url_for(form_action_url) %}
         {% include 'variables/form_component.html' %}
     {% endwith %}
     <!--End include form-->

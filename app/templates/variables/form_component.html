@@ -6,6 +6,7 @@
             <input type="number"
                    class="form-control"
                    id="L{{ variable_number }}f{{ i }}A0"
+                   name="L{{ variable_number }}f{{ i }}A0"
                    placeholder="A0"
                    value="1"
                    required>
@@ -15,6 +16,7 @@
             <input type="number"
                    class="form-control"
                    id="L{{ variable_number }}f{{ i }}A1"
+                   name="L{{ variable_number }}f{{ i }}A1"
                    placeholder="A1"
                    value="0"
                    required>
@@ -24,13 +26,13 @@
             <input type="number"
                    class="form-control"
                    id="L{{ variable_number }}f{{ i }}A2"
+                   name="L{{ variable_number }}f{{ i }}A2"
                    placeholder="A2"
                    value="0"
                    required>
         </div>
     {% endfor %}
-    <button type="submit"
-            style="margin-top: 10px; margin-bottom: 15px;"
-            class="btn btn-primary">Дальше
+    <button type="submit" style="margin-top: 10px; margin-bottom: 15px;"    class="btn btn-primary">
+        Дальше
     </button>
 </form>
