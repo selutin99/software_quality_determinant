@@ -33,4 +33,11 @@
         z-index: 100;
     }
 }
+
 /* End image zoom */
+
+/* Loader */
+#spinner {
+    display: none;
+}
+/* End loader */

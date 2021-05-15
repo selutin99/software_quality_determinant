@@ -21,9 +21,14 @@
             </div>
         {% endfor %}
 
-        <button type="submit" style="margin-top: 30px; margin-bottom: 15px;" class="btn btn-primary">
+        <button id="calculationButton" type="submit" style="margin-top: 30px; margin-bottom: 15px;" class="btn btn-primary">
             Вычислить
         </button>
+
+        <div id="spinner"
+             class="spinner spinner-border text-primary"
+             role="status">
+        </div>
     </form>
     <!--End include form-->
 {% endblock %}

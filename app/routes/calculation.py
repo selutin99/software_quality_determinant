@@ -94,8 +94,31 @@ def final_setup(polynomial_service: PolynomialService,
             calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME),
             form=request.form
         )
+        calculation_service.solve_difference_equations(
+            calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME)
+        )
+        return redirect(url_for('calculation.cancel_calculation'))
     else:
         polynomial_service.reformat_polynomial_coefficients(
             calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME)
         )
         return render_template('variables/initial_variable_values_page.html')
+
+
+@calculation.route('/cancel-calculation', methods=['GET', 'POST'])
+@inject('calculation_service')
+@session_exist_for_get_post
+def cancel_calculation(calculation_service: CalculationService):
+    if flask.request.method == 'POST':
+        return redirect(url_for('main.clear_session'))
+    else:
+        calculation_id: str = request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME)
+        polynomial_coefficients, initial_variable_values = calculation_service.get_input_user_parameters(
+            calculation_id=calculation_id
+        )
+        return render_template(
+            'variables/result_report.html',
+            plot_name=calculation_id,
+            polynomial_coefficients=polynomial_coefficients,
+            initial_variable_values=initial_variable_values
+        )
