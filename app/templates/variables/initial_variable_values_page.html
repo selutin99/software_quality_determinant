@@ -6,7 +6,7 @@
 
 {% block body %}
     <!--Include form-->
-    <form method="POST" action="{{ url_for('variables.final_setup') }}">
+    <form method="POST" action="{{ url_for('calculation.final_setup') }}">
         {% for i in range(1, 16) %}
             <h3>Начальное значение переменной L{{ i }}</h3>
             <div class="form-group">

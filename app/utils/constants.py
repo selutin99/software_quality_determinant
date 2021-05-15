@@ -12,19 +12,37 @@ class Constants:
             'lower_bound': 1,
             'upper_bound': 7,
             'variable_title': 'L1 надёжность',
-            'variable_name': 'L1 (надёжность)'
+            'variable_name': 'L1 (надёжность)',
+            'incremental_related_variables': [
+                4, 5, 6, 9, 12, 13
+            ],
+            'decremental_related_variables': [
+
+            ]
         },
         '2': {
             'lower_bound': 7,
             'upper_bound': 12,
             'variable_title': 'L2 практичность',
-            'variable_name': 'L2 (практичность)'
+            'variable_name': 'L2 (практичность)',
+            'incremental_related_variables': [
+                2, 11, 12, 13, 14
+            ],
+            'decremental_related_variables': [
+
+            ]
         },
         '3': {
             'lower_bound': 12,
             'upper_bound': 19,
             'variable_title': 'L3 эффективность',
-            'variable_name': 'L3 (эффективность)'
+            'variable_name': 'L3 (эффективность)',
+            'incremental_related_variables': [
+                4, 5, 6, 9, 12, 13, 14
+            ],
+            'decremental_related_variables': [
+
+            ]
         },
         '4': {
             'lower_bound': 19,
@@ -102,3 +120,4 @@ class Constants:
 
     # Paths
     PATH_TO_CALC_STORAGE_FILE = 'app/static/calc_storage/'
+    PATH_SOLUTION_GRAPHS_IMAGE = 'app/static/solution_graphs/'

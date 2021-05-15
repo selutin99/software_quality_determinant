@@ -3,6 +3,8 @@ from typing import NoReturn
 
 from flask import Flask
 
+from utils.constants import Constants
+
 
 class InitialSettings:
     def __init__(self, app: Flask):
@@ -13,14 +15,14 @@ class InitialSettings:
         from app.routes.main import main as main_blueprint
         self.app.register_blueprint(main_blueprint)
 
-        from app.routes.variables import variables as variables_blueprint
-        self.app.register_blueprint(variables_blueprint)
+        from app.routes.calculation import calculation as calculation_blueprint
+        self.app.register_blueprint(calculation_blueprint)
 
     def create_storage_folder(self) -> NoReturn:
-        storage_path = 'app/static/calc_storage'
-
-        if not os.path.exists(storage_path):
-            os.makedirs(storage_path)
+        if not os.path.exists(Constants.PATH_TO_CALC_STORAGE_FILE):
+            os.makedirs(Constants.PATH_TO_CALC_STORAGE_FILE)
+        if not os.path.exists(Constants.PATH_SOLUTION_GRAPHS_IMAGE):
+            os.makedirs(Constants.PATH_SOLUTION_GRAPHS_IMAGE)
 
     def error_handlers(self):
         # Import HTTP base error handlers

@@ -1,6 +1,7 @@
 from flask import render_template, url_for, redirect, flash
 
 from app import app
+from services.custom_exceptions.calculation_service_custom_exceptions import CalculationServiceCustomExceptions
 from services.custom_exceptions.polynomial_service_custom_exceptions import PolynomialServiceCustomExceptions
 
 
@@ -28,6 +29,12 @@ def handle_base_exception(exception):
 @app.errorhandler(PolynomialServiceCustomExceptions.ParsingException)
 def handle_base_exception(exception):
     flash(u'Ошибка обработки полиномиальных коэффициентов')
+    return redirect(url_for('main.index'))
+
+
+@app.errorhandler(CalculationServiceCustomExceptions.ParsingException)
+def handle_base_exception(exception):
+    flash(u'Ошибка обработки начальных значений переменных')
     return redirect(url_for('main.index'))
 
 
