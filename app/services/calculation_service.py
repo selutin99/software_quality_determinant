@@ -114,11 +114,11 @@ class CalculationService:
         cf: dict = self.__get_polynomial_coefficients()
 
         # Perturbations
-        q1 = 0.4 if x > 0.5 else 0.3
-        q2 = 0.15 * math.cos(x)
-        q3 = 0.15 * math.sin(x)
-        q4 = 0.4 if x > 0.8 else 0.3
-        q5 = 0.25 * math.sin(x)
+        q1 = 0.8 if x > 0.65 else 0.8 * x + 0.35
+        q2 = 0.9 if x > 0.7 else 0.9 * x + 0.2
+        q3 = 0.3
+        q4 = 0.25 * math.sin(x)
+        q5 = 0.5
 
         # Variables
         dL1 = self.__multiplicate_polynomials('1', 1, 7, cf, y, is_incremental=True) * (q1 + q2) - q3
