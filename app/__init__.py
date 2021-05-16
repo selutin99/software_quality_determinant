@@ -19,7 +19,7 @@ injector = Inject(app)
 # Create scheduler with scheduled task which removes
 # old calculation json files from static dir
 scheduler = BackgroundScheduler(daemon=True)
-scheduler.add_job(ScheduledService.remove_old_sessions_task, 'interval', minutes=50)
+scheduler.add_job(ScheduledService.remove_old_sessions_task, 'interval', minutes=1150)
 scheduler.start()
 
 # Shut down the scheduler when exiting the app

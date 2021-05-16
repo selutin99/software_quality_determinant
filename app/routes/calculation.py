@@ -1,6 +1,8 @@
 import ast
+import os
 
 import flask
+import pdfkit
 from flask import Blueprint, render_template, make_response, request, redirect, url_for
 
 from services.calculation_service import CalculationService
@@ -123,5 +125,34 @@ def cancel_calculation(calculation_service: CalculationService):
             plot_name=calculation_id,
             polynomial_coefficients=polynomial_coefficients,
             initial_variable_values=initial_variable_values,
-            t1_solution=enumerate(ast.literal_eval(request.args.get('solve')).get('solution'))
+            t1_solution=enumerate(ast.literal_eval(request.args.get('solve')).get('solution')),
+            t1_pdf_list={'t1_sol': ast.literal_eval(request.args.get('solve')).get('solution')}
         )
+
+
+@calculation.route('/get-pdf', methods=['GET'])
+@inject('calculation_service')
+@session_exist_for_get_post
+def get_generated_pdf(calculation_service: CalculationService):
+    calculation_id: str = request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME)
+    polynomial_coefficients, initial_variable_values = calculation_service.get_input_user_parameters(
+        calculation_id=calculation_id
+    )
+    css = ['app/static/css/bootstrap_for_pdfkit/bootstrap.min.css']
+    options = {
+        'enable-local-file-access': None,
+        'encoding': 'UTF-8'
+    }
+
+    rendered = render_template(
+        'variables/pdf_template.html',
+        plot_path=os.path.abspath(Constants.PATH_SOLUTION_GRAPHS_IMAGE + calculation_id + '.png'),
+        polynomial_coefficients=polynomial_coefficients,
+        initial_variable_values=initial_variable_values,
+        t1_solution=enumerate(ast.literal_eval(request.args.get('t1_solution')).get('t1_sol'))
+    )
+    pdf = pdfkit.from_string(rendered, False, css=css, options=options)
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=output.pdf'
+    return response
