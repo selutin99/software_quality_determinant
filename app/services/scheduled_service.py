@@ -30,4 +30,7 @@ class ScheduledService:
         for index, filename in enumerate(list_of_filenames):
             if abs(current_timestamp - int(filename)) > ScheduledService.ONE_DAY_IN_MILLISECONDS:
                 os.remove(list_of_json_files[index])
-                os.remove(list_of_images_files[index])
+                try:
+                    os.remove(list_of_images_files[index])
+                except IndexError:
+                    pass
