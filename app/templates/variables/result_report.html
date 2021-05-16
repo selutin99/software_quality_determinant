@@ -130,6 +130,13 @@
         </div>
     </div>
 
+    <a class="btn btn-success"
+       style="margin-bottom: 10px;"
+       target="_blank"
+       href="{{ url_for('calculation.get_generated_pdf', t1_solution=t1_pdf_list) }}">
+        Сгенерировать отчёт
+    </a>
+
     <!--Include form-->
     <form method="POST" action="{{ url_for('calculation.cancel_calculation') }}">
         <button type="submit" style="margin-top: 30px; margin-bottom: 15px;"
@@ -138,11 +145,4 @@
         </button>
     </form>
     <!--End include form-->
-
-    <a class="btn btn-success"
-       style="margin-bottom: 10px;"
-       target="_blank"
-       href="{{ url_for('calculation.get_generated_pdf', t1_solution=t1_pdf_list) }}">
-        Сгенерировать отчёт
-    </a>
 {% endblock %}
