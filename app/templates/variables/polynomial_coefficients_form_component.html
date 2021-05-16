@@ -37,3 +37,11 @@
         Дальше
     </button>
 </form>
+
+{% if variable_number | int >= 2 and variable_number | int <= 15 %}
+    <a class="btn btn-success"
+       style="margin-bottom: 10px;"
+       href="{{ url_for('calculation.decrease_counter') }}">
+        Назад
+    </a>
+{% endif %}

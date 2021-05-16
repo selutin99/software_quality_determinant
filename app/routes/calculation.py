@@ -8,7 +8,7 @@ from flask import Blueprint, render_template, make_response, request, redirect, 
 from services.calculation_service import CalculationService
 from services.polynomial_service import PolynomialService
 from utils.constants import Constants
-from utils.decorator_utils import session_exist_for_post_only, session_exist_for_get_post
+from utils.decorator_utils import session_exist_for_post_only, session_exist_for_get_post, session_exist_for_get_only
 from utils.flask_inject import inject
 from utils.utils import Utils
 
@@ -130,9 +130,20 @@ def cancel_calculation(calculation_service: CalculationService):
         )
 
 
+@calculation.route('/decrease', methods=['GET'])
+@session_exist_for_get_only
+def decrease_counter():
+    response = redirect(url_for('calculation.continue_setting_up'))
+    response.set_cookie(
+        Constants.PAGE_COUNTER_COOKIE_NAME,
+        str(int(request.cookies.get(Constants.PAGE_COUNTER_COOKIE_NAME)) - 1)
+    )
+    return response
+
+
 @calculation.route('/get-pdf', methods=['GET'])
 @inject('calculation_service')
-@session_exist_for_get_post
+@session_exist_for_get_only
 def get_generated_pdf(calculation_service: CalculationService):
     calculation_id: str = request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME)
     polynomial_coefficients, initial_variable_values = calculation_service.get_input_user_parameters(
