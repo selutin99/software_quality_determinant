@@ -9,6 +9,13 @@
     <h1>Решение для введенных параметров</h1>
     <br/>
 
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Инструкция:</strong>
+        Если решения системы в момент времени t=1 больше 1 или меньше 0,<br>
+        то разработка инф. системы не будет проходить на должном уровне качества.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+    </div>
+
     <h4>График решения:</h4>
     <div class="row">
         <div class="col-6 mx-auto text-center">
@@ -17,7 +24,41 @@
         </div>
     </div>
 
-    <h4>Введённые полиномиальные коэффициенты:</h4>
+    <h4>Решения системы в момент времени t=1</h4>
+    <p>
+        <button class="btn btn-primary"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseT1Solution"
+                aria-expanded="false"
+                aria-controls="collapseT1Solution">
+            Просмотреть значения
+        </button>
+    </p>
+    <div class="collapse" id="collapseT1Solution">
+        <div class="row">
+            <div class="col-6 mx-auto text-center">
+                <table class="table table-striped table-responsive w-100 d-block d-md-table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Значение</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for index, value in t1_solution %}
+                        <tr>
+                            <th scope="row">L{{ index + 1 }}</th>
+                            <td>{{ value }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <h4>Введённые полиномиальные коэффициенты</h4>
     <p>
         <button class="btn btn-primary"
                 type="button"
@@ -55,7 +96,7 @@
         </div>
     </div>
 
-    <h4>Введённые начальные значения переменных:</h4>
+    <h4>Введённые начальные значения переменных</h4>
     <p>
         <button class="btn btn-primary"
                 type="button"

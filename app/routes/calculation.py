@@ -1,3 +1,5 @@
+import ast
+
 import flask
 from flask import Blueprint, render_template, make_response, request, redirect, url_for
 
@@ -94,10 +96,10 @@ def final_setup(polynomial_service: PolynomialService,
             calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME),
             form=request.form
         )
-        calculation_service.solve_difference_equations(
+        t1_solve: dict = calculation_service.solve_difference_equations(
             calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME)
         )
-        return redirect(url_for('calculation.cancel_calculation'))
+        return redirect(url_for('calculation.cancel_calculation', solve=t1_solve))
     else:
         polynomial_service.reformat_polynomial_coefficients(
             calculation_id=request.cookies.get(Constants.CALCULATION_ID_COOKIE_NAME)
@@ -120,5 +122,6 @@ def cancel_calculation(calculation_service: CalculationService):
             'variables/result_report.html',
             plot_name=calculation_id,
             polynomial_coefficients=polynomial_coefficients,
-            initial_variable_values=initial_variable_values
+            initial_variable_values=initial_variable_values,
+            t1_solution=enumerate(ast.literal_eval(request.args.get('solve')).get('solution'))
         )

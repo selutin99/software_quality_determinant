@@ -31,14 +31,13 @@ class CalculationService:
             data = json.load(file)
         return data.get(self.__polynomial_coefficients_key), data.get(self.__initial_variable_values_key)
 
-    def solve_difference_equations(self, calculation_id: str) -> NoReturn:
+    def solve_difference_equations(self, calculation_id: str) -> dict:
         """
         Solving a system of differential equations
         in accordance with the developed mathematical model
         and the parameters entered by the user for the current session
         :param calculation_id: cookie value is equal to user session id
-        :return: dictionary which contains all input user parameters
-        and path to image -> solution for system of differential equations
+        :return: dict which contains all systems solutions for t = 1
         """
         with open('{path}{id}.json'.format(path=Constants.PATH_TO_CALC_STORAGE_FILE, id=calculation_id), 'r') as file:
             data = json.load(file)
@@ -46,6 +45,8 @@ class CalculationService:
 
         Y, X = self.__solve_systems_of_difference_equations(data=self.__data_dict)
         self.__save_plot(calculation_id=calculation_id, Y=Y, X=X)
+
+        return {'solution': [Y[len(Y) - 1, i] for i in range(0, 15)]}
 
     def append_initial_variable_values(self, calculation_id: str, form: ImmutableMultiDict) -> NoReturn:
         """
@@ -76,10 +77,10 @@ class CalculationService:
                 raise CalculationServiceCustomExceptions.ParsingException('Parsing exception')
         return result_dict
 
-    def __save_plot(self, calculation_id, Y, X) -> NoReturn:
+    def __save_plot(self, calculation_id: str, Y: np.ndarray, X: np.ndarray) -> NoReturn:
         plot_path: str = Constants.PATH_SOLUTION_GRAPHS_IMAGE + calculation_id + '.png'
 
-        plt.rcParams["figure.figsize"] = (10, 5)
+        plt.rcParams["figure.figsize"] = (15, 8)
 
         for i in range(0, 15):
             plt.plot(X, Y[:, i], label='L' + str(i + 1))
@@ -87,7 +88,7 @@ class CalculationService:
         plt.legend()
         plt.savefig(plot_path)
 
-    def __solve_systems_of_difference_equations(self, data) -> tuple:
+    def __solve_systems_of_difference_equations(self, data: dict) -> tuple:
         X = np.linspace(0, 1, 50)
         Y = None
         niter = 100
@@ -108,7 +109,7 @@ class CalculationService:
                 break
         return Y, X
 
-    def __describe_difference_equations(self, y, x) -> list:
+    def __describe_difference_equations(self, y: np.ndarray, x: float) -> list:
         # Get polynomial coefficients
         cf: dict = self.__get_polynomial_coefficients()
 
@@ -158,7 +159,7 @@ class CalculationService:
                                    lower_polynomial_bound: int,
                                    upper_polynomial_bound: int,
                                    cf: dict,
-                                   y,
+                                   y: np.ndarray,
                                    is_incremental: bool = True) -> float:
         multiplication_result: float = 1.0
         polynomial_coefficients: list = list(range(lower_polynomial_bound, upper_polynomial_bound))
