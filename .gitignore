@@ -1,8 +1,9 @@
 .idea
 logs/
-*.h5
 
-app/static/common/mri_images/*
+app/static/calc_storage/*
+app/static/petal_graphs/*
+app/static/solution_graphs/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

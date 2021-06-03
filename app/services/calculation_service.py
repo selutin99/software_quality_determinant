@@ -1,21 +1,20 @@
 import json
 import math
-import os
 from typing import NoReturn
-
-import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import odeint
 from werkzeug.datastructures import ImmutableMultiDict
 
 from services.custom_exceptions.calculation_service_custom_exceptions import CalculationServiceCustomExceptions
+from services.graph_service import GraphService
 from utils.constants import Constants
 from utils.utils import Utils
 
 
 class CalculationService:
-    def __init__(self, utils: Utils):
+    def __init__(self, utils: Utils, graph_service: GraphService):
         self.__utils = utils
+        self.__graph_service = graph_service
 
         self.__data_dict: dict = {}
         self.__polynomial_coefficients_key = 'polynomial_coefficients'
@@ -45,8 +44,8 @@ class CalculationService:
             self.__data_dict = data
 
         Y, X = self.__solve_systems_of_difference_equations(data=self.__data_dict)
-        self.__save_plot(calculation_id=calculation_id, Y=Y, X=X)
-        self.__save_petal_plots(calculation_id=calculation_id, Y=Y)
+        self.__graph_service.save_plot(calculation_id=calculation_id, Y=Y, X=X)
+        self.__graph_service.save_petal_plots(calculation_id=calculation_id, Y=Y)
 
         return {'solution': [Y[len(Y) - 1, i] for i in range(0, 15)]}
 
@@ -79,49 +78,6 @@ class CalculationService:
                 raise CalculationServiceCustomExceptions.ParsingException('Parsing exception')
         return result_dict
 
-    def __save_plot(self, calculation_id: str, Y: np.ndarray, X: np.ndarray) -> NoReturn:
-        plot_path: str = Constants.PATH_SOLUTION_GRAPHS_IMAGE + calculation_id + '.png'
-
-        plt.rcParams["figure.figsize"] = (15, 8)
-
-        for i in range(0, 15):
-            plt.plot(X, Y[:, i], label='L' + str(i + 1))
-
-        plt.legend()
-        plt.savefig(plot_path)
-
-    def __save_petal_plots(self, calculation_id: str, Y: np.ndarray) -> NoReturn:
-        graph_counter: int = 1
-        graph_title: float = 0
-
-        for i in range(0, len(Y) - 1, 12):
-            if not os.path.exists(Constants.PATH_PETAL_GRAPHS_IMAGE + calculation_id):
-                os.makedirs(Constants.PATH_PETAL_GRAPHS_IMAGE + calculation_id)
-            plot_path: str = Constants.PATH_PETAL_GRAPHS_IMAGE + calculation_id + '/' + str(graph_counter) + '.png'
-            self.__draw_petal_graph(graph_title=graph_title, stats=Y[i, :])
-            plt.savefig(plot_path)
-
-            graph_counter += 1
-            graph_title += 0.25
-
-    def __draw_petal_graph(self, graph_title: float, stats: list) -> NoReturn:
-        variables_list = ['L' + str(i) for i in range(1, 16)]
-        labels = np.array(variables_list)
-
-        angles = np.linspace(0, 2 * np.pi, len(labels), endpoint=False)
-        stats = np.concatenate((stats, [stats[0]]))
-        angles = np.concatenate((angles, [angles[0]]))
-        labels = np.concatenate((labels, [labels[0]]))
-
-        # Plot stuff
-        fig = plt.figure()
-        ax = fig.add_subplot(111, polar=True)
-        ax.plot(angles, stats, 'o-', linewidth=2)
-        ax.fill(angles, stats, alpha=0.25)
-        ax.set_thetagrids(angles * 180 / np.pi, labels)
-        ax.set_title("t=" + str(graph_title))
-        ax.grid(True)
-
     def __solve_systems_of_difference_equations(self, data: dict) -> tuple:
         X = np.linspace(0, 1, 50)
         Y = None
@@ -145,7 +101,7 @@ class CalculationService:
 
     def __describe_difference_equations(self, y: np.ndarray, x: float) -> list:
         # Get polynomial coefficients
-        cf: dict = self.__get_polynomial_coefficients()
+        cf: dict = self.__data_dict.get(self.__polynomial_coefficients_key)
 
         # Perturbations
         q1 = 0.8 if x > 0.65 else 0.8 * x + 0.35
@@ -184,9 +140,6 @@ class CalculationService:
 
     def __get_initial_variable_values(self, session_data_variable_values: dict) -> np.array:
         return np.array([float(i) for i in list(session_data_variable_values.values())])
-
-    def __get_polynomial_coefficients(self) -> dict:
-        return self.__data_dict.get(self.__polynomial_coefficients_key)
 
     def __multiplicate_polynomials(self,
                                    variable_number: str,
