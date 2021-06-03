@@ -1,5 +1,6 @@
 import glob
 import os
+import shutil
 
 from utils.constants import Constants
 from utils.utils import Utils
@@ -25,6 +26,7 @@ class ScheduledService:
         list_of_json_files: list = glob.glob(Constants.PATH_TO_CALC_STORAGE_FILE + ScheduledService.JSON_FILE_EXTENSION)
         list_of_images_files: list = glob.glob(Constants.PATH_SOLUTION_GRAPHS_IMAGE + ScheduledService.PNG_FILE_EXTENSION)
         list_of_filenames: list = [os.path.splitext(os.path.basename(path))[0] for path in list_of_json_files]
+        list_of_petal_graphs: list = glob.glob(Constants.PATH_PETAL_GRAPHS_IMAGE + "*/")
 
         # Remove old files
         for index, filename in enumerate(list_of_filenames):
@@ -32,5 +34,6 @@ class ScheduledService:
                 os.remove(list_of_json_files[index])
                 try:
                     os.remove(list_of_images_files[index])
+                    shutil.rmtree(list_of_petal_graphs[index])
                 except IndexError:
                     pass

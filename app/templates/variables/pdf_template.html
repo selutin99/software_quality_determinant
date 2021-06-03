@@ -7,6 +7,31 @@
          class="img-fluid thumbnail zoom">
 </div>
 
+<h3>График возмущений системы:</h3>
+<img src="{{ perturbations_graph_path }}"
+     class="img-fluid thumbnail">
+
+<h3>Описание возмущений системы:</h3>
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">q<sub>1</sub> - опыт разработчиков программного комплекса</li>
+    <li class="list-group-item">q<sub>2</sub> - опыт работы эксплуатационного персонала</li>
+    <li class="list-group-item">q<sub>3</sub> - трудоемкость разработки программного обеспечения</li>
+    <li class="list-group-item">q<sub>4</sub> - курс рубля по отношению к доллару и евро</li>
+    <li class="list-group-item">q<sub>5</sub> - деловая репутация организации, в которой осуществляется эксплуатация
+        программного комплекса
+    </li>
+</ul>
+
+<h3>Графики изменений решений системы во времени:</h3>
+{% for i in range(1, 6) %}
+    <img src="{{ petal_path + i|string + '.png' }}"
+         class="img-fluid thumbnail">
+{% endfor %}
+
+<h3>Уравнения возмущений системы:</h3>
+<img src="{{ perturbations_equations_path }}"
+     class="img-fluid thumbnail">
+
 <h3>Решения системы в момент времени t=1</h3>
 <table class="table table-striped table-responsive w-100 d-block d-md-table">
     <thead>

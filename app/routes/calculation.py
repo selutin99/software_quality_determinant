@@ -158,6 +158,9 @@ def get_generated_pdf(calculation_service: CalculationService):
     rendered = render_template(
         'variables/pdf_template.html',
         plot_path=os.path.abspath(Constants.PATH_SOLUTION_GRAPHS_IMAGE + calculation_id + '.png'),
+        perturbations_graph_path=os.path.abspath(Constants.PATH_TO_IMAGES_STORAGE_FILE + 'perturbations/perturbations_graph.png'),
+        perturbations_equations_path=os.path.abspath(Constants.PATH_TO_IMAGES_STORAGE_FILE + 'perturbations/perturbations_equations.png'),
+        petal_path=os.path.abspath(Constants.PATH_PETAL_GRAPHS_IMAGE) + '/' + calculation_id + '/',
         polynomial_coefficients=polynomial_coefficients,
         initial_variable_values=initial_variable_values,
         t1_solution=enumerate(ast.literal_eval(request.args.get('t1_solution')).get('t1_sol'))

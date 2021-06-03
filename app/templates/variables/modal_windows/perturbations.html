@@ -1,0 +1,31 @@
+<div class="modal fade" id="perturbations" tabindex="-1" aria-labelledby="perturbationsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="perturbationsModalLabel">Возмущения системы</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>График возмущений системы:</h3>
+                <img src="{{ url_for('static', filename='images/perturbations/perturbations_graph.png') }}"
+                     class="img-fluid thumbnail">
+
+                <h3>Описание возмущений системы:</h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">q<sub>1</sub> - опыт разработчиков программного комплекса</li>
+                    <li class="list-group-item">q<sub>2</sub> - опыт работы эксплуатационного персонала</li>
+                    <li class="list-group-item">q<sub>3</sub> - трудоемкость разработки программного обеспечения</li>
+                    <li class="list-group-item">q<sub>4</sub> - курс рубля по отношению к доллару и евро</li>
+                    <li class="list-group-item">q<sub>5</sub> - деловая репутация организации, в которой осуществляется эксплуатация программного комплекса</li>
+                </ul>
+
+                <h3>Уравнения возмущений системы:</h3>
+                <img src="{{ url_for('static', filename='images/perturbations/perturbations_equations.png') }}"
+                     class="img-fluid thumbnail">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -188,5 +188,7 @@ class Constants:
     }
 
     # Paths
+    PATH_TO_IMAGES_STORAGE_FILE = 'app/static/images/'
     PATH_TO_CALC_STORAGE_FILE = 'app/static/calc_storage/'
     PATH_SOLUTION_GRAPHS_IMAGE = 'app/static/solution_graphs/'
+    PATH_PETAL_GRAPHS_IMAGE = 'app/static/petal_graphs/'
