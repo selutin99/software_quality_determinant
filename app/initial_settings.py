@@ -23,6 +23,8 @@ class InitialSettings:
             os.makedirs(Constants.PATH_TO_CALC_STORAGE_FILE)
         if not os.path.exists(Constants.PATH_SOLUTION_GRAPHS_IMAGE):
             os.makedirs(Constants.PATH_SOLUTION_GRAPHS_IMAGE)
+        if not os.path.exists(Constants.PATH_PETAL_GRAPHS_IMAGE):
+            os.makedirs(Constants.PATH_PETAL_GRAPHS_IMAGE)
 
     def error_handlers(self):
         # Import HTTP base error handlers
