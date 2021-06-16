@@ -4,9 +4,9 @@ import os
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask
 
-from initial_settings import InitialSettings
-from services.scheduled_service import ScheduledService
-from utils.flask_inject import Inject
+from .initial_settings import InitialSettings
+from .services.scheduled_service import ScheduledService
+from .utils.flask_inject import Inject
 
 # Create Flask application object and
 # set secret key for this object

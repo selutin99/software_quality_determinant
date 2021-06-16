@@ -1,10 +1,10 @@
 from typing import NoReturn
 
 from app import injector, InitialSettings, app
-from services.calculation_service import CalculationService
-from services.graph_service import GraphService
-from services.polynomial_service import PolynomialService
-from utils.utils import Utils
+from ..services.calculation_service import CalculationService
+from ..services.graph_service import GraphService
+from ..services.polynomial_service import PolynomialService
+from ..utils.utils import Utils
 
 
 def container() -> NoReturn:

@@ -3,7 +3,7 @@ from typing import NoReturn
 
 from flask import Flask
 
-from utils.constants import Constants
+from .utils.constants import Constants
 
 
 class InitialSettings:

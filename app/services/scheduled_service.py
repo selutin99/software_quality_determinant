@@ -2,8 +2,8 @@ import glob
 import os
 import shutil
 
-from utils.constants import Constants
-from utils.utils import Utils
+from ..utils.constants import Constants
+from ..utils.utils import Utils
 
 
 class ScheduledService:

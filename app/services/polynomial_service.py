@@ -3,9 +3,9 @@ from typing import NoReturn
 
 from werkzeug.datastructures import ImmutableMultiDict
 
-from services.custom_exceptions.polynomial_service_custom_exceptions import PolynomialServiceCustomExceptions
-from utils.constants import Constants
-from utils.utils import Utils
+from ..services.custom_exceptions.polynomial_service_custom_exceptions import PolynomialServiceCustomExceptions
+from ..utils.constants import Constants
+from ..utils.utils import Utils
 
 
 class PolynomialService:

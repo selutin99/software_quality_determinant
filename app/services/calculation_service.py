@@ -5,10 +5,10 @@ import numpy as np
 from scipy.integrate import odeint
 from werkzeug.datastructures import ImmutableMultiDict
 
-from services.custom_exceptions.calculation_service_custom_exceptions import CalculationServiceCustomExceptions
-from services.graph_service import GraphService
-from utils.constants import Constants
-from utils.utils import Utils
+from ..services.custom_exceptions.calculation_service_custom_exceptions import CalculationServiceCustomExceptions
+from ..services.graph_service import GraphService
+from ..utils.constants import Constants
+from ..utils.utils import Utils
 
 
 class CalculationService:

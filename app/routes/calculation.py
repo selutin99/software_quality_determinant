@@ -5,12 +5,12 @@ import flask
 import pdfkit
 from flask import Blueprint, render_template, make_response, request, redirect, url_for
 
-from services.calculation_service import CalculationService
-from services.polynomial_service import PolynomialService
-from utils.constants import Constants
-from utils.decorator_utils import session_exist_for_post_only, session_exist_for_get_post, session_exist_for_get_only
-from utils.flask_inject import inject
-from utils.utils import Utils
+from ..services.calculation_service import CalculationService
+from ..services.polynomial_service import PolynomialService
+from ..utils.constants import Constants
+from ..utils.decorator_utils import session_exist_for_post_only, session_exist_for_get_post, session_exist_for_get_only
+from ..utils.flask_inject import inject
+from ..utils.utils import Utils
 
 calculation = Blueprint('calculation', __name__, template_folder='templates')
 

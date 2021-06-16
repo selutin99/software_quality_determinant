@@ -4,7 +4,7 @@ from typing import NoReturn
 import matplotlib.pyplot as plt
 import numpy as np
 
-from utils.constants import Constants
+from ..utils.constants import Constants
 
 
 class GraphService:

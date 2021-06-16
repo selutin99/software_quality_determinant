@@ -6,8 +6,8 @@ from flask import flash, url_for, request
 from werkzeug.utils import redirect
 
 from app import injector
-from utils.constants import Constants
-from utils.utils import Utils
+from ..utils.constants import Constants
+from ..utils.utils import Utils
 
 
 class Decorators:

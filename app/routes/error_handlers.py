@@ -1,8 +1,8 @@
 from flask import render_template, url_for, redirect, flash
 
 from app import app
-from services.custom_exceptions.calculation_service_custom_exceptions import CalculationServiceCustomExceptions
-from services.custom_exceptions.polynomial_service_custom_exceptions import PolynomialServiceCustomExceptions
+from ..services.custom_exceptions.calculation_service_custom_exceptions import CalculationServiceCustomExceptions
+from ..services.custom_exceptions.polynomial_service_custom_exceptions import PolynomialServiceCustomExceptions
 
 
 @app.errorhandler(404)
