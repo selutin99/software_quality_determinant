@@ -24,6 +24,7 @@ class GraphService:
 
         plt.legend()
         plt.savefig(plot_path)
+        plt.clf()
 
     def save_petal_plots(self, calculation_id: str, Y: np.ndarray) -> NoReturn:
         """
@@ -39,13 +40,18 @@ class GraphService:
             if not os.path.exists(Constants.PATH_PETAL_GRAPHS_IMAGE + calculation_id):
                 os.makedirs(Constants.PATH_PETAL_GRAPHS_IMAGE + calculation_id)
             plot_path: str = Constants.PATH_PETAL_GRAPHS_IMAGE + calculation_id + '/' + str(graph_counter) + '.png'
-            self.__draw_petal_graph(graph_title=graph_title, stats=Y[i, :])
+            self.__draw_petal_graph(
+                graph_title=graph_title,
+                stats=Y[i, :],
+                minimals=np.append(Y[0, :] / 3, Y[0, 0] / 3)
+            )
             plt.savefig(plot_path)
 
             graph_counter += 1
             graph_title += 0.25
+        plt.clf()
 
-    def __draw_petal_graph(self, graph_title: float, stats: list) -> NoReturn:
+    def __draw_petal_graph(self, graph_title: float, stats: list, minimals: list) -> NoReturn:
         variables_list = ['L' + str(i) for i in range(1, 16)]
         labels = np.array(variables_list)
 
@@ -57,8 +63,16 @@ class GraphService:
         # Plot stuff
         fig = plt.figure()
         ax = fig.add_subplot(111, polar=True)
+
         ax.plot(angles, stats, 'o-', linewidth=2)
         ax.fill(angles, stats, alpha=0.25)
+
+        ax.plot(angles, minimals, 'r', linewidth=2)
+        ax.fill(angles, minimals, 'r', alpha=0.1)
+
+        # Add legend and title for the plot
+        plt.legend(labels=('Актуальные значения', 'Минимальные значения'), loc=1)
+
         ax.set_thetagrids(angles * 180 / np.pi, labels)
         ax.set_title("t=" + str(graph_title))
         ax.grid(True)

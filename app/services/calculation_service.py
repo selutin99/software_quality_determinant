@@ -95,6 +95,14 @@ class CalculationService:
                 ),
                 X
             )
+            # Normalize array
+            for normalize_row in range(len(Y)):
+                for normalize_column in range(len(Y[normalize_row])):
+                    if Y[normalize_row][normalize_column] > 1.0:
+                        Y[normalize_row][normalize_column] = 1.0
+                    elif Y[normalize_row][normalize_column] < 0.0:
+                        Y[normalize_row][normalize_column] = 0.0
+
             if abs(Y[len(Y) - 1, 1] - 1) < tol:
                 break
         return Y, X
